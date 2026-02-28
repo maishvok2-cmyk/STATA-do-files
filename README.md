@@ -2,7 +2,7 @@ Title
 K YAGNS Survey Data Processing and Summary Workflow
 
 Description
-This repository contains Stata do files used to clean, label, and generate automated summary statistics for the K YAGNS survey datasets.
+This repository contains Stata do files used to merge, residency map, clean, label, and generate automated summary statistics for the K YAGNS survey datasets.
 
 Modules Included
 
