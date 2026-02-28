@@ -1,36 +1,77 @@
 Title
-K YAGNS Adolescent Variable Labeling Script
+K YAGNS Survey Data Processing and Summary Workflow
 
 Description
-This Stata do file applies variable labels to the K YAGNS Adolescent cleaned dataset using an external Excel metadata file.
+This repository contains Stata do files used to clean, label, and generate automated summary statistics for the K YAGNS survey datasets.
 
-Files Required
+Modules Included
 
-• ADOL_Vatiable List.xlsx
+Variable Labeling Script
+Applies variable labels from Excel metadata to cleaned datasets.
 
-Columns: variable, label
+Automated Variable Summary Script
+Generates a structured summary table for all numeric variables in the merged dataset and exports results to Excel.
 
-• K-YAGNS Adolescent Clean.dta
+Data Inputs
 
-What the Script Does
+• ADOL_Vatiable List.xlsx or related metadata files
 
-• Imports metadata from Excel
-• Matches variable names to the cleaned dataset
-• Applies variable labels automatically
-• Skips variables not found
+Required columns: variable, label
+
+• Final_Merged_Dataset.dta
+
+Final cleaned and merged survey dataset
+
+Variable Labeling Workflow
+
+• Import metadata from Excel
+• Match variable names to dataset
+• Apply labels automatically
+• Skip variables not found
+
+Automated Summary Workflow
+
+The script performs the following steps:
+
+• Loads the final merged dataset
+• Identifies numeric variables
+• Computes for each variable:
+
+Non missing observations
+
+Missing count
+
+Percentage missing
+
+Mean
+
+Standard deviation
+
+Minimum
+
+Maximum
+• Excludes survey special codes above 90 from summaries
+• Classifies variables as:
+
+Binary, if values are 0 and 1
+
+Categorical, if 10 or fewer unique values
+
+Continuous, otherwise
+• Stores results in a structured temporary table
+• Exports final summary table to Excel
 
 Output
 
-Dataset in memory with updated variable labels.
-Save manually after running:
+KYAGN_Full_Survey_Summary.xlsx
 
-save "K-YAGNS Adolescent Clean_labeled.dta", replace
+This file is ready for reporting and data quality review.
 
-Assumptions on first code(solved in the second code) include:
+Assumptions
 
-• Variable names match exactly between Excel and Stata
-• No duplicate variable names in metadata
-• Labels do not contain unescaped quotation marks
+• Special survey codes such as 98 and 99 are treated as non analytic values
+• Numeric variables are the focus of summary generation
+• Variable names match metadata exactly
 
 Author
 Kelvin
