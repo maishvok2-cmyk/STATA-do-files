@@ -1,22 +1,17 @@
 *======================================================================================================
 * Adolescent
-*=======================================================================================================
+*======================================================================================================
 
-* Import the excel file containing the labels
-
-import excel "C:\Users\Public\Documents\APHRC\K-YAGNS\National Survey\Final Cleaned DataSets\Metadata\ADOL_Vatiable List.xlsx", firstrow clear
+* Import metadata
+import excel "$metadata/ADOL_Variable_List.xlsx", firstrow clear
 rename variable varname
 rename label varlabel
+
 tempfile labels
 save `labels'
 
-* Load your dataset
-
-use "C:\Users\Public\Documents\APHRC\K-YAGNS\National Survey\Final Cleaned DataSets\Final Datasets\K-YAGNS Adolescent Clean.dta", clear
-
-* Loop through each variable name in Excel
-* Check if it exists in your dataset
-* Apply the label
+* Load dataset
+use "$data/Final_Merged_Dataset.dta", clear
 
 tempfile main
 save `main'
@@ -38,20 +33,16 @@ foreach v of local vars {
     }
 }
 
-* Save final dataset
-// save "C:\Users\Public\Documents\APHRC\K-YAGNS\National Survey\Final Cleaned DataSets\Final Datasets\K-YAGNS Adolescent Clean.dta", replace
+* Save if needed
+* save "$data/K-YAGNS_Adolescent_Clean.dta", replace
 
 
-*================================================================
-*** Caregiver ## needed to Trim spaces in the variable labels
-*==================================================================
+*======================================================================================================
+* Caregiver
+*======================================================================================================
 
-
-* Import and clean labels (updated code from above)
-
-
-import excel "C:\Users\Public\Documents\APHRC\K-YAGNS\National Survey\Final Cleaned DataSets\Metadata\PCG_Variable_List.xlsx", firstrow clear
-
+* Import and clean metadata
+import excel "$metadata/PCG_Variable_List.xlsx", firstrow clear
 rename variable varname
 rename label varlabel
 
@@ -65,14 +56,8 @@ duplicates drop varname, force
 tempfile labels
 save `labels'
 
-
-* Load your dataset
-
-use "C:\Users\Public\Documents\APHRC\K-YAGNS\National Survey\Final Cleaned DataSets\Final Datasets\K-YAGNS Caregiver Clean.dta", clear
-
-* Loop through each variable name in Excel
-* Check if it exists in your dataset
-* Apply the label
+* Load dataset
+use "$data/K-YAGNS_Caregiver_Clean.dta", clear
 
 tempfile main
 save `main'
@@ -94,5 +79,5 @@ foreach v of local vars {
     }
 }
 
-
-// save "C:\Users\Public\Documents\APHRC\K-YAGNS\National Survey\Final Cleaned DataSets\Final Datasets\K-YAGNS Caregiver Clean.dta", replace
+* Save if needed
+* save "$data/K-YAGNS_Caregiver_Clean.dta", replace
